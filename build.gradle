@@ -1,0 +1,17 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.vanniktech:gradle-maven-publish-plugin:0.33.0'
+    }
+}
+
+group = 'io.github.itlattice'
+version = (findProperty('VERSION_NAME') ?: '4.85').toString()
+
+allprojects {
+    repositories {
+        mavenCentral()
+    }
+}

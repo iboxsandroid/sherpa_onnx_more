@@ -1,0 +1,61 @@
+// library/build.gradle
+apply plugin: 'maven-publish'
+apply plugin: 'signing'
+apply plugin: 'com.vanniktech.maven.publish.base'
+
+def publishVersion = rootProject.version
+
+mavenPublishing {
+    publishToMavenCentral()
+    signAllPublications()
+}
+
+// 配置Maven发布
+publishing {
+    publications {
+        aar(MavenPublication) {
+            groupId = 'io.github.itlattice'
+            artifactId = 'sherpaonnx-more'
+            version = publishVersion
+            
+            // 指定AAR文件路径
+            artifact("$projectDir/src/main/aar/sherpa_onnx-release.aar")
+            
+            // 添加POM元数据
+            pom {
+                name = 'sherpaonnx-more'
+                description = 'sherpaonnx-more'
+                url = 'https://github.com/iboxsandroid/sherpa_onnx_more'
+                inceptionYear = '2024'
+                
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        distribution = 'repo'
+                    }
+                }
+                
+                developers {
+                    developer {
+                        id = 'itlattice'
+                        name = 'itlattice'
+                        email = 'itlattice@gmail.com'
+                    }
+                }
+                
+                scm {
+                    connection = 'scm:git:git://github.com/iboxsandroid/sherpa_onnx_more.git'
+                    developerConnection = 'scm:git:ssh://github.com/iboxsandroid/sherpa_onnx_more.git'
+                    url = 'https://github.com/iboxsandroid/sherpa_onnx_more'
+                }
+            }
+        }
+    }
+}
+
+// 配置签名
+signing {
+    useGpgCmd()
+    sign publishing.publications.aar
+}
