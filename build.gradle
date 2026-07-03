@@ -8,7 +8,7 @@ buildscript {
 }
 
 group = 'io.github.itlattice'
-version = (findProperty('VERSION_NAME') ?: '4.85').toString()
+version = '1.0.0'
 
 allprojects {
     repositories {
